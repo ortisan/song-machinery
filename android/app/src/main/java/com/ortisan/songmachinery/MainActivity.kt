@@ -14,17 +14,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import com.ortisan.songmachinery.audio.Frequency
 import com.ortisan.songmachinery.audio.bufferSize
 import com.ortisan.songmachinery.audio.sampleRate
+import com.ortisan.songmachinery.tuner.components.AdmobBanner
 import com.ortisan.songmachinery.tuner.components.Tuner
 import com.ortisan.songmachinery.ui.theme.SongMachineryTheme
 
@@ -33,14 +35,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         // Declare mutable state to store frequency
-        val frequencyState = mutableStateOf(0.0)
+        val frequencyState = mutableDoubleStateOf(0.0)
 
         enableEdgeToEdge()
 
         setContent {
             SongMachineryTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TunerCompose(frequencyState.value,
+                    AdmobBanner(modifier = Modifier.fillMaxWidth())
+
+                    TunerCompose(frequencyState.doubleValue,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -94,13 +98,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
-fun TunerCompose(frequency: Double = 0.0, modifier: Modifier = Modifier) {
+fun TunerCompose(frequency: Double, modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier
     ) {
         Tuner(frequency = frequency)
     }

@@ -50,6 +50,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material3)
+    implementation(libs.android.ads)
+    implementation(libs.play.services.ads.lite)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

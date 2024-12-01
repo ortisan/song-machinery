@@ -15,6 +15,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ortisan.songmachinery.audio.Frequency.Companion.frequencyToPitch
+import kotlin.math.cos
+import kotlin.math.sin
 
 @Composable
 fun Tuner(frequency: Double) {
@@ -56,14 +58,14 @@ fun Tuner(frequency: Double) {
             style = Stroke(width = 16.dp.toPx(), cap = StrokeCap.Round)
         )
 
-        val tickCount = 10
+        val tickCount = 12
         for (i in 0..tickCount) {
             val angle = startAngle + (i * (sweepAngle / tickCount))
             val angleRadians = Math.toRadians(angle.toDouble())
-            val startX = centerX + (radius - 20.dp.toPx()) * kotlin.math.cos(angleRadians).toFloat()
-            val startY = centerY + (radius - 20.dp.toPx()) * kotlin.math.sin(angleRadians).toFloat()
-            val endX = centerX + radius * kotlin.math.cos(angleRadians).toFloat()
-            val endY = centerY + radius * kotlin.math.sin(angleRadians).toFloat()
+            val startX = centerX + (radius - 20.dp.toPx()) * cos(angleRadians).toFloat()
+            val startY = centerY + (radius - 20.dp.toPx()) * sin(angleRadians).toFloat()
+            val endX = centerX + radius * cos(angleRadians).toFloat()
+            val endY = centerY + radius * sin(angleRadians).toFloat()
 
             drawLine(
                 color = Color.Black,
